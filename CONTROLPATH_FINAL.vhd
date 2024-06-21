@@ -826,27 +826,25 @@ process (Instr,Rst) begin
 
 				signal_PC_LdEn	<= '1'; --?	     
 
-				signal_RF_WrData_sel <= '1';
+				signal_RF_WrData_sel <= '1'; 
 
-				--signal_RF_B_sel 		<= 'X';  
+				signal_fill_mode_sel <= '1'; 
 
-				signal_fill_mode_sel <= '1'; --?
-
-				signal_shift_en      <= '0'; --?
+				signal_shift_en      <= '0'; 
 
 				signal_ALU_BIN_sel   <= '1';
 
 				signal_ALU_func	   <= "0000";
 
-				signal_sel_16_immed  <= '0'; --?
+				signal_sel_16_immed  <= '0'; 
 
 				signal_li_sel   	 	<= '1'; 
 
 				signal_MEM_WrEn 	   <= '0';
 
-				--signal_sel_rfd_mask	<= 'X'; --?
+				signal_sel_rfd_mask	<= '0'; 
 
-				signal_sel_mem_mask  <= '1'; --?
+				signal_sel_mem_mask  <= '1'; 
 
 		
 

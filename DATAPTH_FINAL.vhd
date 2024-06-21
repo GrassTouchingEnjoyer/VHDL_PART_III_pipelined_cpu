@@ -278,10 +278,12 @@ component WB_M_register_EX_MEM
 			  WE  : in  STD_LOGIC;
 			  
            Data_in       : in  STD_LOGIC_VECTOR(31 downto 0); 
+			  Data_rfb      : in STD_LOGIC_VECTOR (31 downto 0);
 			  Data_Control  : in STD_LOGIC_VECTOR (4 downto 0);
 			  Data_rd       : in STD_LOGIC_VECTOR (4 downto 0);
 			  
            Dout_in 		: out  STD_LOGIC_VECTOR (31 downto 0);
+			  Dout_rfb     : out STD_LOGIC_VECTOR  (31 downto 0);
 			  Dout_Control : out  STD_LOGIC_VECTOR (4 downto 0);
 			  Dout_rd 		: out  STD_LOGIC_VECTOR (4 downto 0)
 );
@@ -443,9 +445,9 @@ if_dec: Register_unit
 	);
 --________________________________________
 
---------------------------------------------|RD instr signal|
-signal_Data_RD_1 <= instr_signal(4 downto 0);
---------------------------------------------
+-----------------------------------------------|RD instr signal|
+signal_Data_RD_1 <= instr_signal(20 downto 16);
+-----------------------------------------------
 
 
 
@@ -462,7 +464,7 @@ decode: DECSTAGE
 PORT MAP(
 
 		Instr         => IF_REG_DEC_signal    		  ,   --instr_signal
-		RF_WrEn       =>   signal_Dout_CONTROL_WB(0),
+		RF_WrEn       =>  signal_Dout_CONTROL_WB(0) ,
 		ALU_out       =>  signal_Dout_ALU_WB		  , 	        --signal--
 		MEM_out       =>  signal_Dout_MEM_WB		  ,          --signal--
 		AWR_ADRESS    =>  signal_Dout_RD_WB	        ,
@@ -475,7 +477,6 @@ PORT MAP(
 		Immed			  => immed_signal 		  		  , 		--signal--
 		RF_A			  => rfa_signal    		  		  , 		--signal--
 		RF_B		     => rfb_signal     		               --signal--
-
 
 );
 
@@ -549,7 +550,7 @@ PORT MAP(
 );
 --_______________|REGISTER_1|_______________| EXEC_out -> MEM_in  
 
-PIPELINE_CONTROL_REGISTER_WB_M: WB-M-register_EX-MEM	-- REPLACED WITH WB_M_register_EX_MEM
+PIPELINE_CONTROL_REGISTER_WB_M: WB_M_register_EX_MEM	-- REPLACED WITH WB_M_register_EX_MEM
 
 	PORT MAP
 	(
@@ -558,7 +559,7 @@ PIPELINE_CONTROL_REGISTER_WB_M: WB-M-register_EX-MEM	-- REPLACED WITH WB_M_regis
 			  WE  => '1',
 			  
            Data_in => alu_out_signal,
-			  Data_rfb => signal_Dout_RFB,
+			  Data_rfb => signal_Dout_RFB_1,
 
 			  Data_CONTROL(0) 	=> signal_Dout_CONTROL_12(7),
 			  Data_CONTROL(1) 	=> signal_Dout_CONTROL_12(8),
@@ -621,9 +622,10 @@ PIPELINE_CONTROL_REGISTER_WB: WB_register_MEM_WB	-- WB_register_MEM_WB
 		 Dout_ALU     =>	signal_Dout_ALU_WB,
 		 Dout_RD      =>  signal_Dout_RD_WB,	
 		 Dout_CONTROL =>  signal_Dout_CONTROL_WB
-
+		 
 	);
 --______________________________________________________
+
 
 
 
