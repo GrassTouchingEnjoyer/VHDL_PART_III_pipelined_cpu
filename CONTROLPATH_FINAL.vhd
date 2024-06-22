@@ -7,7 +7,9 @@ use IEEE.STD_LOGIC_1164.ALL;
 entity CONTROLPATH_FINAL is
 
     Port ( 
-
+				
+			  Clk : in STD_LOGIC; 	
+			  	
 			  Instr : in  STD_LOGIC_VECTOR (31 downto 0);
 			  
 			  Rst  : in  STD_LOGIC;
@@ -91,7 +93,7 @@ signal   signal_sel_mem_mask  : STD_LOGIC;
 ------------------------------------------------------
 begin
 
-process (Instr,Rst) begin
+process (Instr,Rst,Clk) begin
 
 
 

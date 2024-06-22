@@ -129,7 +129,9 @@ signal   signal_sel_mem_mask  		  : STD_LOGIC;
 component CONTROLPATH_FINAL is
 
     Port ( 
-
+			  
+			  Clk  : in  STD_LOGIC;
+			   	
 			  Instr : in  STD_LOGIC_VECTOR (31 downto 0);
 			  
 			  Rst  : in  STD_LOGIC;
@@ -370,7 +372,9 @@ begin
 control_unit: CONTROLPATH_FINAL 
 
     PORT MAP( 
-
+					
+				Clk => Clk,
+				
 				Instr => instr_signal ,
 			  
 				Rst => Reset, 
@@ -463,7 +467,7 @@ decode: DECSTAGE
 
 PORT MAP(
 
-		Instr         => IF_REG_DEC_signal    		  ,   --instr_signal
+		Instr         =>  instr_signal	   		  ,   --instr_signal
 		RF_WrEn       =>  signal_Dout_CONTROL_WB(0) ,
 		ALU_out       =>  signal_Dout_ALU_WB		  , 	        --signal--
 		MEM_out       =>  signal_Dout_MEM_WB		  ,          --signal--
